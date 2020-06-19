@@ -10,7 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthenticationService {
 
 
-  private host = 'http://localhost:8080';
+  private host = 'http://localhost:8081';
 
   public jwt;
   private username: string;
@@ -22,6 +22,7 @@ export class AuthenticationService {
 
 
   login(data): Observable<any> {
+    console.log(data)
     return this.http.post<any>(this.host + '/login', data, { observe: 'response' });
   }
 

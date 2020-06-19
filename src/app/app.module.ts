@@ -27,6 +27,7 @@ import { CommentaireComponent } from './component/commentaire/commentaire.compon
 import {AnnonceComponent} from './page/annonce/annonce.component';
 import {CreerAnnonceComponent} from './page/creer-annonce/creer-annonce.component';
 import {CategorieComponent} from './page/categorie/categorie.component';
+import {AbonneComponent} from './page/abonnes/abonne.component';
 
 
 
@@ -53,6 +54,7 @@ import {CategorieComponent} from './page/categorie/categorie.component';
     AnnonceComponent,
     CreerAnnonceComponent,
     CategorieComponent,
+    AbonneComponent,
   ],
   imports: [
     BrowserModule,

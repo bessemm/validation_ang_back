@@ -31,6 +31,7 @@ export class CategorieComponent implements OnInit {
   onAllCategories() {
     this.catService.getAllCategories().subscribe(data => {
       this.catgories = data ;
+      console.log(data);
     }, err => {
       console.log(err);
     });

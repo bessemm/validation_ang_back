@@ -4,7 +4,7 @@
       <!--<app-side-nav></app-side-nav>-->
 
 
-      <nav class="container fixed" id="sidebar">
+      <nav class="container sticky-top" id="sidebar">
         <ul class="list-unstyled components">
           <h6>Toute la Tunisie</h6>
           <li>
@@ -30,21 +30,31 @@
         </ul>
 
 
-        <ul class="list-unstyled components  " *ngIf="categories" >
+        <ul class="list-unstyled components" *ngIf="categories" >
+
           <h6>Nos Catégories</h6>
-          <li *ngFor="let cat of categories;let i = index">
-            <a  href="#x{{i}}" (click)="getSubCategories(cat)"
-                data-toggle="collapse"  class="dropdown-toggle"  ><label [innerHTML]="balise[i]"></label> {{cat.nom}}</a>
+          <li>
+            <div class="form-group" >
+              <select  name="currentCategorie" class="form-control"   (change)="getSubCategories($event)" >
+                <option  [value]="cat.nom" *ngFor="let cat of categories;let i = index" [(ngModel)]="currentCategorie">
+                  {{cat.nom}}
+                </option>
+              </select>
 
-            <ul class="collapse list-unstyled" data-parent="#sidebar" id="x{{i}}">
-              <li>
-                <a  *ngFor="let scat of subCatgories" (click)="getAnnoncesBySousCategorie(scat.nom)">{{scat.nom}}</a>
-              </li>
-            </ul>
-
+            </div>
           </li>
-        </ul>
+          <li>
+            <div class="form-group" >
+              <select (change)="getAnnoncesBySousCategorie($event)" name="currentSubCatgorie"  class="form-control" >
+                <option>sous categorie</option>
+                <option *ngFor="let scat of subCatgories"  routerLink="sc/{{scat.nom}}" [value]="scat.nom">
+                  {{scat.nom}}
+                </option>
+              </select>
+            </div>
+          </li>
 
+        </ul>
         <hr>
 
      </nav>

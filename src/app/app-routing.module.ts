@@ -23,7 +23,8 @@ const routes: Routes = [
   {path: 'messages' , component: MessagesComponent, canActivate: [AuthGuard]},
   {path: 'annonces/:id' , component: AnnonceComponent, canActivate: [AuthGuard]},
   {path: 'creerAnnonce' , component: CreerAnnonceComponent, canActivate: [AuthGuard]},
-  {path: 'categories' , component: CategorieComponent , canActivate: [AdminGuard] },
+  {path: 'admin/abonnee' , component: CategorieComponent },
+  {path: 'admin/categories' , component: CategorieComponent },
 
   { path: 'test', component: TestComponent },
   {path: '**', component: Page404Component}

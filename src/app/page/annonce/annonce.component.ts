@@ -16,8 +16,9 @@ export class AnnonceComponent implements OnInit {
   private annonce;
   private user;
   private mesAnnonces;
-  private cause;
+  private commentr;
   private favoris = false;
+  private suggestion;
 
   constructor(private activatedRoute: ActivatedRoute,
               private annonceService: AnnonceService,
@@ -42,12 +43,15 @@ export class AnnonceComponent implements OnInit {
     this.annonceService.getAnnonce(id).subscribe(data => {
       this.annonce = data;
       console.log(data);
-
+this.annonceService.getSugg(data.id).subscribe(data=>{
+  this.suggestion=data ;
+})
       //  this.getAbonne(data.username);
       const x = this.annonce.datePublication;
-      const date1 = new Timestamp(x);
-      const diffTime = Math.abs(Date.now() - date1);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const date1 = new Timestamp(x,1);
+    //  const diffTime = Math.abs(Date.now() - date1);
+      //  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffDays = 0 ;
        console.log(diffDays);
       this.deposeDate = diffDays - 1;
 
@@ -58,7 +62,7 @@ export class AnnonceComponent implements OnInit {
 
   onSuggerer() {
     // this.username = username;
-    this.getMesAnnonces();
+    this.getMesAnnonces(this.user.username);
     $('#suggererModal').modal('show');
   }
 
@@ -69,13 +73,13 @@ export class AnnonceComponent implements OnInit {
   getUser() {
     this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
-      this.getMesAnnonces();
+      this.getMesAnnonces(user.username);
       console.log(user);
     });
   }
 
-  getMesAnnonces() {
-    this.annonceService.getMyAnnonce().subscribe(data => {
+  getMesAnnonces(id) {
+    this.annonceService.getMyAnnonce(id).subscribe(data => {
       this.mesAnnonces = data;
       console.log(this.mesAnnonces);
     });
@@ -85,17 +89,21 @@ export class AnnonceComponent implements OnInit {
       console.log(sugg);
     this.hideSuggererModal();
     this.annonce.suggestion.push(sugg);
-    this.annonceService.suggererAnnonce(this.annonce).subscribe( data => {
+    this.annonceService.suggererAnnonce(this.annonce.id, sugg ).subscribe( data => {
           this.getAnnonce();
+    }, error1 => {
+      console.log(error1);
     });
   }
   OnCommenter(comm) {
-    // console.log(comm);
-    // console.log(this.annonce.id);
-    // console.log(this.user.username);
+    console.log(this.commentr);
+     console.log(this.annonce.id);
+    console.log(this.user.username);
+    this.annonceService.commenter(this.annonce.id, this.commentr, this.user.username).subscribe( data => {
+      this.annonce = data;
 
-    this.annonceService.commenter(this.annonce.id, comm, this.user.username).subscribe( data => {
-      this.getAnnonce();
+    }, error1 => {
+      console.log(error1);
     });
   }
 

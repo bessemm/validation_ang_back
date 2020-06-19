@@ -9,7 +9,7 @@ import 'rxjs-compat/add/operator/map';
 })
 export class AnnonceService {
 
-  private host = 'http://localhost:8080/annonces';
+  private host = 'http://localhost:8081/annonces';
 
   constructor(private http: HttpClient, private authService: AuthenticationService) {
 
@@ -56,21 +56,24 @@ export class AnnonceService {
   getAnnonces3( currentCategorie: any, currentSubCatgorie: any) {
     console.log(currentCategorie);
     console.log(currentSubCatgorie);
+    return this.http.get(this.host + '/' + currentCategorie + '/' + currentSubCatgorie);
+
   }
 
 
-  suggererAnnonce(annonce): Observable<any> {
-    const url = annonce._links.self.href;
+  suggererAnnonce(annonce, sugg): Observable<any> {
+    console.log(annonce);
       const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
-    return this.http.patch(url, annonce, {headers: headers});
+    return this.http.get(this.host + '/sugg/' + sugg +'/' +  annonce, {headers: headers});
   }
 
   commenter(idAnnonce, contenu, username): Observable<any> {
     let params = new HttpParams();
+
     params = params.set('idAnnonce', idAnnonce);
     params = params.set('contenu', contenu);
     params = params.set('username', username);
-
+console.log(contenu);
     const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
     return this.http.post(this.host + '/commenter', params, {headers: headers});
   }
@@ -84,8 +87,12 @@ export class AnnonceService {
     return this.http.get(this.host );
   }
 
-  getMyAnnonce() {
+  getMyAnnonce(id) {
     const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
-    return this.http.get(this.host + '/myannonces' );
+    return this.http.get(this.host + '/myannonces/' + id );
+  }
+  getSugg(id) {
+    const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
+    return this.http.get(this.host + '/sugg/' + id ) ;
   }
 }

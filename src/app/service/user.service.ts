@@ -8,7 +8,7 @@ import {AuthenticationService} from './authentication.service';
   providedIn: 'root'
 })
 export class UserService {
-  private host = 'http://localhost:8080';
+  private host = 'http://localhost:8081';
 
 
   constructor(private http: HttpClient, private authService: AuthenticationService) {
@@ -21,8 +21,8 @@ export class UserService {
   register(user): Observable < any > {
     return this.http.post(this.host + '/inscription', user);
   }
-  getbnreAbonne(){
-    const url = this.host +  '/utilisateurs/nbreAbonne'  ;
+  getbnreAbonne(id) {
+    const url = this.host +  '/utilisateurs/nbreAbonne/' + id;
     const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
 
     return  this.http.get(url, {headers: headers});
@@ -42,5 +42,19 @@ export class UserService {
   // <---------- Methodes for ADMIN ---------------->
   ajouterFavoris(user: any): Observable < any > {
 return null ;
+  }
+
+  getAllUsers(){
+    return null ;
+  }
+  deleteUser(id) {
+    return null ;
+  }
+
+  getbnreannonce(id) {
+    const url = this.host +  '/utilisateurs/nbreAnnonce/' + id;
+    const headers = new HttpHeaders({'authorization': 'Bearer ' + this.authService.jwt});
+
+    return  this.http.get(url, {headers: headers});
   }
 }

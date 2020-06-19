@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.saveToken(jwt);
         // this.router.navigate([this.returnUrl]);
       if (this.authenticationService.isAdmin()) {
-        this.router.navigate(['/categories']); } else { this.router.navigate([this.returnUrl]); }
+        this.router.navigate(['/admin/categories']); } else { this.router.navigate([this.returnUrl]); }
       },
       error => {
         this.alertService.error('Email ou Mot de passe incorrect');

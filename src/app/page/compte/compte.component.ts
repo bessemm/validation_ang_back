@@ -14,6 +14,7 @@ export class CompteComponent implements OnInit {
   private registerForm: FormGroup;
   private annonces;
 private  nbreAbonee ;
+  private  nbreAnnonce ;
 
   constructor(private userService: UserService,
               private formBuilder: FormBuilder,
@@ -23,9 +24,6 @@ private  nbreAbonee ;
 
   ngOnInit() {
     this.getUser();
-    this.getMesAnnonce();
-    this.getNbreAbonne() ;
-
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -34,25 +32,34 @@ private  nbreAbonee ;
     });
 
   }
-getMesAnnonce(){
-    this.annnceSrvcie.getMyAnnonce().subscribe(data=>{
+getMesAnnonce(id) {
+    this.annnceSrvcie.getMyAnnonce(id).subscribe(data => {
       this.annonces = data ;
+      console.log(data);
     }, error => {
       console.log(error);
   });
 }
+
   getUser() {
     this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
+      this.getMesAnnonce(this.user.username);
+      this.getNbreAbonne(this.user.username) ;
        console.log(user);
     });
   }
 
-  getNbreAbonne() {
-    this.userService.getbnreAbonne().subscribe(data => {
+  getNbreAbonne(id) {
+    this.userService.getbnreAbonne(id).subscribe(data => {
       this.nbreAbonee = data;
       console.log(data);
     });
+    this.userService.getbnreannonce(id).subscribe(data => {
+      this.nbreAnnonce = data;
+      console.log(data);
+    });
+
   }
 
 }

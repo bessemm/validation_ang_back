@@ -8,7 +8,7 @@ import {AuthenticationService} from './authentication.service';
 })
 export class CategoryService {
 
-  private host = 'http://localhost:8080/categories';
+  private host = 'http://localhost:8081/categories';
 
   constructor(private http: HttpClient, private authService: AuthenticationService) {
   }
@@ -45,6 +45,7 @@ export class CategoryService {
 
 
   getSubCategoriesByCategory(cat): Observable<any> {
+    console.log(cat);
     const url = 'http://localhost:8080/categories/souscat/' + cat;
     return this.http.get(url);
   }

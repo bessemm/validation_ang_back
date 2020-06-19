@@ -8,8 +8,8 @@ import {Component, Input, OnInit} from '@angular/core';
 export class SuggestionCardComponent implements OnInit {
 
 
-  @Input() id;
-  private annonce;
+  @Input() annonce;
+
 
   constructor(
   ) {

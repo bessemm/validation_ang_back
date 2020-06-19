@@ -37,8 +37,8 @@
           <app-commentaire *ngFor="let comment of annonce.commentaires" [commentaire]="comment"></app-commentaire>
 
           <div class="input-group mb-3">
-            <form #f="ngForm" class="input-group" (ngSubmit)="OnCommenter(f.value.commentaire)">
-              <input type="text" class="form-control" name="commentaire" [(ngModel)]="commentaire"
+            <form #f="ngForm" class="input-group" (ngSubmit)="OnCommenter(f.value.commentr)">
+              <input type="text" class="form-control" name="commentaire" [(ngModel)]="commentr"
                      placeholder="Votre commentaire..."
                      aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -93,7 +93,7 @@
           {{annonce.description}}
         </p>
         <ul>
-          <li><span class="fas fa-tag all"></span> <b> {{annonce.categorie}},{{annonce.sousCategorie}}</b></li>
+          <li><span class="fas fa-tag all"></span> <b> {{annonce.categorie.nom}},{{annonce.sousCategorie.nom}}</b></li>
           <li><span class="fas fa-map-marker-alt all"></span> <b> {{annonce.gouvernorat}} , {{annonce.ville}}</b></li>
           <li><span class="fa fa-clock-o all"></span> Deposé
             <b> {{deposeDate === 0 ? "Aujourd'hui" : 'il y a ' + deposeDate + ' jours'}} </b></li>
@@ -111,8 +111,8 @@
 
   <div class="container-fluid">
     <h3 class="mb-0 text-truncated">Suggestions</h3>
-    <div class="row">
-      <app-card suggestion *ngFor="let s of annonce.suggestion" [id]="s"></app-card>
+    <div class="row"  *ngIf="suggestion!=null">
+      <app-card suggestion *ngFor="let s of suggestion" [annonce]="s"></app-card>
     </div>
   </div>
 
@@ -132,7 +132,7 @@
         <div class="modal-body">
           <label>Mes Annonces:</label>
           <div class="row justify-content-center">
-            <app-suggestion-card *ngFor="let a of mesAnnonces" [id]="a.id"
+            <app-suggestion-card *ngFor="let a of mesAnnonces" [annonce]="a"
                                  (click)="selectSuggestion(a.id)"></app-suggestion-card>
           </div>
         </div>

@@ -15,7 +15,7 @@ export class AccueilComponent implements OnInit {
   private gov = Gouvernorat.gov;
   private ville;
   private annonces;
-  currentCategorie;
+  private  currentCategorie;
   currentSubCatgorie;
   private currentGov;
   private currentVille;
@@ -23,7 +23,7 @@ export class AccueilComponent implements OnInit {
   private motCle;
   private  categories ;
 private subCatgories ;
-  private balise = ['<i class="fas fa-book"></i>', '<i class="fas fa-tools"></i>', '<i class="fas fa-car"></i>',
+private balise = ['<i class="fas fa-book"></i>', '<i class="fas fa-tools"></i>', '<i class="fas fa-car"></i>',
     '<i class="fas fa-tshirt"></i>', '<i class="fas fa-futbol"></i>', '<i class="fas fa-hands-helping"></i>'];
 
 
@@ -31,17 +31,20 @@ private subCatgories ;
                private route: ActivatedRoute, private annonceService: AnnonceService
   ) {
     this.route.params.subscribe(params => {
-      this.motCle = this.route.snapshot.paramMap.get('motCle');
+       this.motCle = this.route.snapshot.paramMap.get('motCle');
       if (this.motCle) {
         this.recherche = true;
         console.log(this.motCle);
       } else {
-        this.getAnnonces() ;
+        this.annonceService.getAllAnnonce().subscribe(data=>{
+          this.annonces = data ;
+        });
       }
     });
   }
 
   ngOnInit() {
+
     this.getCategories();
 
   }
@@ -82,9 +85,17 @@ private subCatgories ;
       console.log(data);
     });
   }
-
-  getSubCategories(cat) {
-this.catService.getSubCategoriesByCategory(cat.nom).subscribe(data => {
+  getAnnoncesBySousCategorie(scat) {
+    this.currentSubCatgorie = scat;
+    // this.getAnnonces();
+    this.annonceService.getAnnonces3(this.currentCategorie , this.currentSubCatgorie).subscribe(data => {
+      console.log(data);
+    });
+  }
+  getSubCategories(e) {
+    console.log(e.target.value) ;
+    this.currentCategorie = e.target.value ;
+this.catService.getSubCategoriesByCategory(this.currentCategorie).subscribe(data => {
   this.subCatgories = data ;
   console.log(data);
 });

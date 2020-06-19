@@ -11,52 +11,11 @@
   </nav>
   <h5>Annonces à la Une </h5>
   <div class="row justify-content-center">
-    <div *ngFor="let annonce of annonces" >
-      <div class="container mt-4"  id="azerty" >
-        <a  routerLink="/annonces/{{annonce.id}}"  class="card card-inverse card-info">
+    <app-card *ngFor="let annonce of annonces" [annonce]="annonce"></app-card>
 
-          <!--<div class="card-img-overlay d-flex justify-content-end">-->
-          <!--<a href="like" class="card-link text-success like">-->
-          <!--<i class="fas fa-dollar-sign fa-2x"></i>-->
-          <!--</a>-->
-          <!--</div>-->
-          <img class="card-img-top" src="data:image/jpeg;base64,{{annonce.image1}}">
-          <div class="card-block">
-            <!--<figure class="profile">-->
-            <!--<img src="https://picsum.photos/200/150/?random" class="profile-avatar" alt="">-->
-            <!--</figure>-->
-            <h3 class="card-title"><label>{{annonce.titre}}</label></h3>
-          </div>
-        </a>
-      </div>
-    </div>
   </div>
 
 
-  <h5>Sélectionné pour vous</h5>
- <div class="container">
 
-   <div class="row justify-content-center ">
-     <div *ngFor="let annonce of annonces" >
-       <div class="container mt-4"  >
-         <a  routerLink="/annonces/{{annonce.id}}"  class="card card-inverse card-info">
-
-           <!--<div class="card-img-overlay d-flex justify-content-end">-->
-           <!--<a href="like" class="card-link text-success like">-->
-           <!--<i class="fas fa-dollar-sign fa-2x"></i>-->
-           <!--</a>-->
-           <!--</div>-->
-           <img class="card-img-top" src="data:image/jpeg;base64,{{annonce.image1}}">
-           <div class="card-block">
-             <!--<figure class="profile">-->
-             <!--<img src="https://picsum.photos/200/150/?random" class="profile-avatar" alt="">-->
-             <!--</figure>-->
-             <h3 class="card-title"><label>{{annonce.titre}}</label></h3>
-           </div>
-         </a>
-       </div>
-     </div>
-   </div>
- </div>
 
 </div>
